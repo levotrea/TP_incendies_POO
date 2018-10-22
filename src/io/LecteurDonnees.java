@@ -67,7 +67,7 @@ public class LecteurDonnees {
 
     /**
      * Lit et affiche les donnees de la carte.
-     * @throws ExceptionFormatDonnees
+     * @throws DataFormatException
      */
     private void lireCarte() throws DataFormatException {
         ignorerCommentaires();
@@ -238,7 +238,7 @@ public class LecteurDonnees {
 
     /**
      * Verifie qu'il n'y a plus rien a lire sur cette ligne (int ou float).
-     * @throws ExceptionFormatDonnees
+     * @throws DataFormatException
      */
     private void verifieLigneTerminee() throws DataFormatException {
         if (scanner.findInLine("(\\d+)") != null) {

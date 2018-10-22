@@ -1,64 +1,86 @@
 public class Carte {
 
+    private int tailleCases;
     private int n;
     private int m;
-    private Case[] cases;
+    private Case[] matriceCases;
 
-    public Carte(int n, int m, Case[] cases) {
+    public Carte(int tailleCases, int n, int m, Case[] cases) {
+        this.tailleCases = tailleCases;
         this.n = n;
         this.m = m;
-        this.cases = cases;
+        this.matriceCases = cases;
     }
 
-    public int getN() {
-        return n;
+    public int getTailleCases() {
+        return tailleCases;
     }
 
-    public int getM() {
-        return m;
+    public int getNbLignes() {
+        return n / tailleCases;
     }
 
-    public Case[] getCases() {
-        return cases;
+    public int getNbColonnes() {
+        return m / tailleCases;
     }
 
-    public Case getCaseAuxCoordonnees(int x, int y) {
-        return cases[x + this.m*y];
+    public Case[] getMatriceCases() {
+        return matriceCases;
     }
 
-    public Case getCaseDirection(Case case_courante, Directions direction)  {
+    public Case getCase(int ligne, int colonne) {
+        return matriceCases[ligne + this.getNbColonnes()*colonne];
+    }
+
+    public boolean voisinExiste(Case case_courante, Directions direction) {
+
+        boolean existe = true;
+        switch (direction)  {
+            case NORD:
+                if (case_courante.getColonne() <= 0)   {
+                    existe = false;
+                }
+                break;
+            case SUD:
+                if (case_courante.getColonne() >= getNbLignes())   {
+                    existe = false;
+                }
+            case EST:
+                if (case_courante.getLigne() >= getNbColonnes())   {
+                    existe = false;
+                }
+            case OUEST:
+                if (case_courante.getLigne() <= 0)   {
+                    existe = false;
+                }
+        }
+        return existe;
+    }
+
+    public Case getVoisin(Case case_courante, Directions direction)  {
 
         Case nouvelle_case = new Case();
 
-        switch (direction)  {
-            case NORD:
-                if (case_courante.getY() > 0)   {
-                    nouvelle_case = cases[case_courante.getX() + m * (case_courante.getY() - 1)];
-                }
-                else    {
-                    throw new IndexOutOfBoundsException("Already at the top of the map, can't go higher !");
-                }
-            case SUD:
-                if (case_courante.getY() < n)   {
-                    nouvelle_case = cases[case_courante.getX() + m * (case_courante.getY() + 1)];
-                }
-                else    {
-                    throw new IndexOutOfBoundsException("Already at the bottom of the map, can't go lower !");
-                }
-            case EST:
-                if (case_courante.getX() < m)   {
-                    nouvelle_case = cases[(case_courante.getX() + 1) + m * case_courante.getY()];
-                }
-                else    {
-                    throw new IndexOutOfBoundsException("Already at the end of the map, can't go further on the right !");
-                }
-            case OUEST:
-                if (case_courante.getX() < 0)   {
-                    nouvelle_case = cases[(case_courante.getX() - 1) + m * case_courante.getY()];
-                }
-                else    {
-                    throw new IndexOutOfBoundsException("Already at the end of the map, can't go further on the left !");
-                }
+        if (voisinExiste(case_courante, direction)) {
+
+            switch (direction)  {
+                case NORD:
+                    nouvelle_case = matriceCases[case_courante.getLigne() + getNbColonnes() * (case_courante.getColonne() - 1)];
+                    break;
+                case SUD:
+                    nouvelle_case = matriceCases[case_courante.getLigne() + getNbColonnes() * (case_courante.getColonne() + 1)];
+                    break;
+                case EST:
+                    nouvelle_case = matriceCases[(case_courante.getLigne() + 1) + getNbColonnes() * case_courante.getColonne()];
+                    break;
+                case OUEST:
+                    nouvelle_case = matriceCases[(case_courante.getLigne() - 1) + getNbColonnes() * case_courante.getColonne()];
+                    break;
+            }
+        }
+
+        else    {
+            throw new IndexOutOfBoundsException("Vous ne pouvez pas aller dans cette direction car vous etes deja au bord de la carte !");
         }
 
         return nouvelle_case;

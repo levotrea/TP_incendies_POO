@@ -7,4 +7,16 @@ public class Incendie {
         this.position = position;
         this.eauNecessaire = eauNecessaire;
     }
+
+    public Case getPosition() {
+        return position;
+    }
+
+    public int getEauNecessaire() {
+        return eauNecessaire;
+    }
+
+    public void setEauNecessaire(int eauNecessaire) {
+        this.eauNecessaire = eauNecessaire;
+    }
 }
