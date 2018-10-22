@@ -7,21 +7,21 @@ public class Case {
 
     private int ligne;
     private int colonne;
-    private NatureTerrains terrain;
+    private NatureTerrains nature;
     private boolean enFeu;
 
 
     public Case() {
         this.ligne = 0;
         this.colonne = 0;
-        this.terrain = NatureTerrains.TERRAIN_LIBRE;
+        this.nature = NatureTerrains.TERRAIN_LIBRE;
         this.enFeu = false;
     }
 
     public Case(int ligne, int colonne, NatureTerrains terrain, boolean estEnFeu) {
         this.ligne = ligne;
         this.colonne = colonne;
-        this.terrain = terrain;
+        this.nature = terrain;
         this.enFeu = estEnFeu;
     }
 
@@ -37,8 +37,8 @@ public class Case {
         return enFeu;
     }
 
-    public NatureTerrains getTerrain() {
-        return terrain;
+    public NatureTerrains getNature() {
+        return nature;
     }
 
 

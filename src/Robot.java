@@ -16,10 +16,11 @@ public abstract class Robot {
      * @param vitesses
      * @param capacite
      */
-    public Robot(Case position, Map<NatureTerrains, Double> vitesses, int capacite) {
+    public Robot(Case position, Map<NatureTerrains, Double> vitesses, int capacite, int contenuReservoir) {
         this.position = position;
         this.vitesses = vitesses;
         this.capacite = capacite;
+        this.contenuReservoir = contenuReservoir;
     }
 
     /**
@@ -40,11 +41,11 @@ public abstract class Robot {
 
     /**
      * Renvoie la vitesse correspondant au type de terrain pour le type de robot en question.
-     * @param terrain
+     * @param nature
      * @return double : vitesse
      */
-    public double getVitesse(NatureTerrains terrain)    {
-        return vitesses.get(terrain);
+    public double getVitesse(NatureTerrains nature)    {
+        return vitesses.get(nature);
     }
 
     /**
@@ -70,6 +71,14 @@ public abstract class Robot {
     public void setPosition(Case position) {
         // Très basique, devra prendre en compte la vitesse (donc le temps de trajet) plus tard
         this.position = position;
+    }
+
+    /**
+     * Fixe le contenu du reservoir d'eau du robot à la valeur donnée en paramètre.
+     * @param contenuReservoir
+     */
+    public void setContenuReservoir(int contenuReservoir) {
+        this.contenuReservoir = contenuReservoir;
     }
 
     /**
